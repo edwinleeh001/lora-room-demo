@@ -1,6 +1,7 @@
 import {createTimeline} from './timeline.mjs';
 document.querySelector('#lesson').innerHTML=window.lessonHTML;
 document.querySelector('#speaker').innerHTML=window.speakerHTML;
+document.querySelector('#bilingual-lecture').innerHTML=window.bilingualHTML;
 const $=s=>document.querySelector(s), x0=$('#x0'),x1=$('#x1'),pred=$('#pred'),time=$('#time'), play=$('#play');
 let pos=0,raf=0,last=0,feedback='';const fmt=n=>Number(n).toFixed(2).replace('-', '−');
 function pause(){cancelAnimationFrame(raf);raf=0;last=0;play.textContent='播放'}
@@ -18,7 +19,9 @@ const video=document.querySelector('#video video'),videoLink=document.querySelec
 
 async function loadVideo(){
  const manifest=await (await fetch('video/manifest.json')).json();
- const parts=await Promise.all(manifest.parts.map(async name=>{const r=await fetch('video/parts/'+name);if(!r.ok)throw Error('Video segment unavailable');return r.arrayBuffer()}));
+ const parts=new Array(manifest.parts.length);let next=0;
+ async function worker(){while(next<manifest.parts.length){let i=next++;const r=await fetch('video/parts/'+manifest.parts[i]);if(!r.ok)throw Error('Video segment unavailable');parts[i]=await r.arrayBuffer()}}
+ await Promise.all(Array.from({length:Math.min(5,manifest.parts.length)},worker));
  const blob=new Blob(parts,{type:'video/mp4'});if(blob.size!==manifest.bytes)throw Error('Video size mismatch');
  const url=URL.createObjectURL(blob);video.src=url;videoLink.href=url;videoLink.download='qwen-image-explainer.mp4';
 }
