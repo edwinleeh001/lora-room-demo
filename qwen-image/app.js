@@ -15,7 +15,7 @@ document.querySelectorAll('[data-answer]').forEach(b=>b.onclick=()=>{let delta=+
 document.addEventListener('visibilitychange',()=>{if(document.hidden)pause()});new IntersectionObserver(([e])=>{if(!e.isIntersecting)pause()},{threshold:.05}).observe($('#lab'));render();
 // Reassemble the optimized video from small local segments; no external service is required.
 const video=document.querySelector('#video video'),videoLink=document.querySelector('#video a[download][href$=".mp4"]');
-video.querySelector('source').remove();
+
 async function loadVideo(){
  const manifest=await (await fetch('video/manifest.json')).json();
  const parts=await Promise.all(manifest.parts.map(async name=>{const r=await fetch('video/parts/'+name);if(!r.ok)throw Error('Video segment unavailable');return r.arrayBuffer()}));
