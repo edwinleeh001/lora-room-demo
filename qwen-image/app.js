@@ -43,3 +43,12 @@ rewards.forEach(id=>document.getElementById(id).addEventListener('input',()=>{re
 document.querySelectorAll('[data-reward-answer]').forEach(e=>e.addEventListener('click',()=>{$('#reward-feedback').textContent=e.dataset.rewardAnswer==='zero'?'正确。全部相同时偏差均为零，标准差为零，公式直接归一化无定义。':'再想一想：各奖励都等于均值，因此偏差和标准差均为零。'}));rewardRender();
 // Re-render calculated descriptions in the selected language without resetting inputs.
 document.addEventListener('qwen-language-change',()=>{render();metricRender();inferRender();rewardRender();play.textContent=raf?'暂停':'播放'});
+// Subtitle choice is independent from the page language and uses real video text tracks.
+const captionButtons=[...document.querySelectorAll('[data-caption]')];
+let captionChoice;try{captionChoice=localStorage.getItem('qwen-captions')}catch{}
+if(!['zh','en','off'].includes(captionChoice)){try{captionChoice=localStorage.getItem('qwen-language')==='en'?'en':'zh'}catch{captionChoice='zh'}}
+function selectCaption(choice,save=true){captionChoice=choice;for(const track of video.textTracks){track.mode=choice!=='off'&&((choice==='zh'&&track.language.startsWith('zh'))||track.language===choice)?'showing':'disabled'}for(const button of captionButtons)button.setAttribute('aria-pressed',String(button.dataset.caption===choice));if(save)try{localStorage.setItem('qwen-captions',choice)}catch{}}
+captionButtons.forEach(button=>button.addEventListener('click',()=>selectCaption(button.dataset.caption)));
+video.addEventListener('loadedmetadata',()=>selectCaption(captionChoice,false));
+video.textTracks.addEventListener('change',()=>{const active=[...video.textTracks].find(t=>t.mode==='showing');const current=active?(active.language.startsWith('zh')?'zh':active.language==='en'?'en':'off'):'off';if(current!==captionChoice)selectCaption(current)});
+selectCaption(captionChoice,false);
