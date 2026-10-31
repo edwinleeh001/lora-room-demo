@@ -1,32 +1,12 @@
 {
   "parts": [
-    "clean-000",
-    "clean-001",
-    "clean-002",
-    "clean-003",
-    "clean-004",
-    "clean-005",
-    "clean-006",
-    "clean-007",
-    "clean-008",
-    "clean-009",
-    "clean-010",
-    "clean-011",
-    "clean-012",
-    "clean-013",
-    "clean-014",
-    "clean-015",
-    "clean-016",
-    "clean-017",
-    "clean-018",
-    "clean-019",
-    "clean-020",
-    "clean-021",
-    "clean-022",
-    "clean-023",
-    "clean-024",
-    "clean-025"
+    "core30-000",
+    "core30-001",
+    "core30-002",
+    "core30-003",
+    "core30-004",
+    "core30-005"
   ],
-  "bytes": 4651464,
-  "sha256": "40b3b59eee457d4d07efca2e6709f1b46e4c10239acc8ca34e1c9638a4f37190"
+  "bytes": 975483,
+  "sha256": "913ab7aaba6244a67e9b2df1c503c508aae5ad36cd613e19fd695952e226fc01"
 }

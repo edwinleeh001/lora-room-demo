@@ -1,175 +1,20 @@
 WEBVTT
 
-00:00:00.000 --> 00:00:02.227 line:68% position:50% align:center size:90%
-一张海报画得很漂亮，
 
-00:00:02.227 --> 00:00:03.786 line:68% position:50% align:center size:90%
-但店名写错了。
+00:00:00.000 --> 00:00:05.000 line:68% position:50% align:center size:90%
+Qwen2.5-VL理解提示词；编辑时也理解源图。
 
-00:00:03.786 --> 00:00:04.676 line:68% position:50% align:center size:90%
-你觉得，
+00:00:05.000 --> 00:00:10.000 line:68% position:50% align:center size:90%
+VAE把图像编码为紧凑的潜在表示。
 
-00:00:04.676 --> 00:00:07.794 line:68% position:50% align:center size:90%
-这能算一次成功的图片生成吗？
+00:00:10.000 --> 00:00:15.000 line:68% position:50% align:center size:90%
+MMDiT结合条件与当前latent，预测变化速度。
 
-00:00:07.794 --> 00:00:11.310 line:68% position:50% align:center size:90%
-Qwen Image 要解决两个难题：
+00:00:15.000 --> 00:00:20.000 line:68% position:50% align:center size:90%
+从噪声迭代更新，最后由VAE解码回像素。
 
-00:00:11.310 --> 00:00:12.975 line:68% position:50% align:center size:90%
-在图片里写对文字，
+00:00:20.000 --> 00:00:25.000 line:68% position:50% align:center size:90%
+语义路径理解修改，VAE路径提供源图细节。
 
-00:00:12.975 --> 00:00:15.565 line:68% position:50% align:center size:90%
-以及编辑局部时保留其他内容。
-
-00:00:15.565 --> 00:00:16.300 line:68% position:50% align:center size:90%
-首先，
-
-00:00:16.300 --> 00:00:19.726 line:68% position:50% align:center size:90%
-多模态语言模型读取文字指令。
-
-00:00:19.726 --> 00:00:21.195 line:68% position:50% align:center size:90%
-编辑图片时，
-
-00:00:21.195 --> 00:00:23.153 line:68% position:50% align:center size:90%
-它还会理解原图，
-
-00:00:23.153 --> 00:00:24.866 line:68% position:50% align:center size:90%
-形成语义条件。
-
-00:00:24.866 --> 00:00:26.494 line:68% position:50% align:center size:90%
-变分自编码器，
-
-00:00:26.494 --> 00:00:28.121 line:68% position:50% align:center size:90%
-简称 VAE，
-
-00:00:28.121 --> 00:00:30.678 line:68% position:50% align:center size:90%
-把图像压缩成潜在表示。
-
-00:00:30.678 --> 00:00:31.375 line:68% position:50% align:center size:90%
-最后，
-
-00:00:31.375 --> 00:00:34.862 line:68% position:50% align:center size:90%
-解码器再把潜在表示还原成像素。
-
-00:00:34.862 --> 00:00:40.712 line:68% position:50% align:center size:90%
-多模态扩散 Transformer 接收语义条件和图像表示，
-
-00:00:40.712 --> 00:00:44.027 line:68% position:50% align:center size:90%
-反复预测当前状态该往哪个方向变化。
-
-00:00:44.027 --> 00:00:44.997 line:68% position:50% align:center size:90%
-训练时，
-
-00:00:44.997 --> 00:00:47.665 line:68% position:50% align:center size:90%
-先把干净的图像潜在值，
-
-00:00:47.665 --> 00:00:50.333 line:68% position:50% align:center size:90%
-和随机噪声按时间混合。
-
-00:00:50.333 --> 00:00:54.214 line:68% position:50% align:center size:90%
-模型要学习从噪声走向图像的速度。
-
-00:00:54.214 --> 00:00:56.089 line:68% position:50% align:center size:90%
-假设干净值是二，
-
-00:00:56.089 --> 00:00:57.495 line:68% position:50% align:center size:90%
-噪声是负一，
-
-00:00:57.495 --> 00:00:59.369 line:68% position:50% align:center size:90%
-时间是零点二五。
-
-00:00:59.369 --> 00:01:02.181 line:68% position:50% align:center size:90%
-混合后的值是负零点二五，
-
-00:01:02.181 --> 00:01:03.821 line:68% position:50% align:center size:90%
-目标速度是三。
-
-00:01:03.821 --> 00:01:06.568 line:68% position:50% align:center size:90%
-如果模型预测速度二点五，
-
-00:01:06.568 --> 00:01:09.086 line:68% position:50% align:center size:90%
-平方误差就是零点二五。
-
-00:01:09.086 --> 00:01:11.375 line:68% position:50% align:center size:90%
-这里是一维教学算例，
-
-00:01:11.375 --> 00:01:13.893 line:68% position:50% align:center size:90%
-并非真实模型运行结果。
-
-00:01:13.893 --> 00:01:17.004 line:68% position:50% align:center size:90%
-生成时没有现成的目标图片。
-
-00:01:17.004 --> 00:01:18.918 line:68% position:50% align:center size:90%
-模型从噪声出发，
-
-00:01:18.918 --> 00:01:21.072 line:68% position:50% align:center size:90%
-反复预测更新方向，
-
-00:01:21.072 --> 00:01:23.704 line:68% position:50% align:center size:90%
-最终由解码器还原图像。
-
-00:01:23.704 --> 00:01:25.079 line:68% position:50% align:center size:90%
-修改原图时，
-
-00:01:25.079 --> 00:01:27.599 line:68% position:50% align:center size:90%
-语义路径理解要改什么，
-
-00:01:27.599 --> 00:01:30.577 line:68% position:50% align:center size:90%
-视觉编码路径提供原图细节。
-
-00:01:30.577 --> 00:01:33.785 line:68% position:50% align:center size:90%
-两路信息一起帮助编辑与保留。
-
-00:01:33.785 --> 00:01:34.953 line:68% position:50% align:center size:90%
-作者报告，
-
-00:01:34.953 --> 00:01:37.523 line:68% position:50% align:center size:90%
-中文常见字准确率较高，
-
-00:01:37.523 --> 00:01:42.428 line:68% position:50% align:center size:90%
-但第三等级生僻字准确率只有百分之六点四八。
-
-00:01:42.428 --> 00:01:45.778 line:68% position:50% align:center size:90%
-分数的小幅领先不等于统计显著。
-
-00:01:45.778 --> 00:01:48.681 line:68% position:50% align:center size:90%
-要判断双路设计各自的作用，
-
-00:01:48.681 --> 00:01:52.254 line:68% position:50% align:center size:90%
-还需要控制数据与算力做消融实验。
-
-00:01:52.254 --> 00:01:53.446 line:68% position:50% align:center size:90%
-回到海报：
-
-00:01:53.446 --> 00:01:54.877 line:68% position:50% align:center size:90%
-漂亮还不够。
-
-00:01:54.877 --> 00:01:57.978 line:68% position:50% align:center size:90%
-我们也要检查文字是否准确，
-
-00:01:57.978 --> 00:02:00.125 line:68% position:50% align:center size:90%
-修改是否符合要求，
-
-00:02:00.125 --> 00:02:02.749 line:68% position:50% align:center size:90%
-以及其他内容是否保留。
-
-00:02:02.749 --> 00:02:03.910 line:68% position:50% align:center size:90%
-记住四步：
-
-00:02:03.910 --> 00:02:05.072 line:68% position:50% align:center size:90%
-理解指令，
-
-00:02:05.072 --> 00:02:06.233 line:68% position:50% align:center size:90%
-表示图像，
-
-00:02:06.233 --> 00:02:07.395 line:68% position:50% align:center size:90%
-预测速度，
-
-00:02:07.395 --> 00:02:08.556 line:68% position:50% align:center size:90%
-解码结果。
-
-00:02:08.556 --> 00:02:11.576 line:68% position:50% align:center size:90%
-论文中的结果来自作者报告，
-
-00:02:11.576 --> 00:02:13.899 line:68% position:50% align:center size:90%
-动画数字是教学例子。
+00:00:25.000 --> 00:00:30.000 line:68% position:50% align:center size:90%
+理解条件 → 表示图像 → 预测速度 → 解码结果。
