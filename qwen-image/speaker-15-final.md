@@ -201,3 +201,67 @@ Three takeaways: text accuracy needs data, representation and training together;
 **中文翻译**
 
 三个要点：文字准确性需要数据、表示与训练配合；双路条件针对语义与细节；基准结论取决于语言和协议。Qwen-Image取得了有价值的进展，但归因和罕见字可靠性仍需研究。谢谢，欢迎就数学原理、证据或建议实验提问。
+
+## Q&A：3个重点问题 / Three questions for discussion
+
+答问备查，不计入17分55秒正文预算。每题选择一种语言回答，约45-60秒，预留追问时间。
+
+### Q1｜Flow matching：训练与推理 / Training and inference
+
+**Question**
+
+If flow matching uses the clean image during training, how can it generate an image without knowing that image at inference?
+
+**问题**
+
+Flow matching训练时需要干净图像，为什么推理时不知道这张图，也能生成图像？
+
+**Suggested answer**
+
+The clean image defines the training target, not an inference input. Using the notation in this talk, x_t = t x_0 + (1 - t) x_1 and the target velocity is x_0 - x_1. The network learns to predict velocity from the current latent, time and prompt. At inference, it starts from noise and repeatedly follows the predicted field. The actual path need not be a straight line.
+
+**参考回答**
+
+干净图像用于定义训练目标，并不是推理时的输入。按照本次汇报的符号，x_t = t x_0 + (1 - t) x_1，目标速度为x_0 - x_1。网络学习根据当前潜变量、时间和提示词预测速度。推理时从噪声出发，反复沿预测的速度场更新；实际轨迹不一定是直线。
+
+依据 / Basis: §4.1.1, Eqs. (1)-(2) · [Qwen-Image Technical Report v1](https://arxiv.org/html/2508.02324v1)
+
+### Q2｜双路编辑：机制与验证 / Dual conditioning and validation
+
+**Question**
+
+Why does image editing need both Qwen2.5-VL and a VAE encoder, and how would you test whether both are necessary?
+
+**问题**
+
+图像编辑为什么同时需要Qwen2.5-VL和VAE编码器？如何验证两条路径是否都有必要？
+
+**Suggested answer**
+
+They provide complementary conditions: Qwen2.5-VL captures semantic meaning, while the VAE supplies reconstructive visual detail. Both condition one generator. This explains the design, but does not prove each route is necessary. I would compare semantic-only, VAE-only and dual conditioning with matched data and compute, measuring requested changes and preservation separately. That is my proposed ablation, not a completed result in the paper.
+
+**参考回答**
+
+两者提供互补条件：Qwen2.5-VL捕捉语义，VAE提供用于重建的视觉细节，两条路径共同为一个生成器提供条件。这解释了设计动机，但不能证明每条路径都不可缺少。我会在数据和算力匹配的条件下，比较仅语义、仅VAE和双路条件，分别衡量修改成功与内容保留。这是我提出的消融方案，不是论文已经完成的结果。
+
+依据 / Basis: §4.3, Fig. 14; ablation: presenter proposal / 消融：演讲者建议 · [Qwen-Image Technical Report v1](https://arxiv.org/html/2508.02324v1)
+
+### Q3｜结果边界：中文是否可靠？ / Limits of Chinese text rendering
+
+**Question**
+
+Do the Chinese text results mean that Qwen-Image can reliably generate any Chinese character?
+
+**问题**
+
+中文文字测试的结果，是否说明Qwen-Image能可靠地生成任意汉字？
+
+**Suggested answer**
+
+No. ChineseWord reports 97.29 percent accuracy for Level 1, but only 6.48 percent for Level 3. It tests single-character rendering, so its results also do not directly establish paragraph-level reliability. The paper shows useful progress under specific protocols. I would test rare characters and longer layouts separately, and report uncertainty before making a broad reliability claim.
+
+**参考回答**
+
+不能。ChineseWord中，第一级准确率为97.29%，第三级却只有6.48%。它测试的是单字生成，所以结果也不能直接证明段落级文字可靠性。论文表明模型在特定协议下取得了有价值的进展。若要提出普遍可靠的结论，我会分别测试罕见字和更长的文字布局，并报告结果的不确定性。
+
+依据 / Basis: §5.2.2, ChineseWord, Table 9 · [Qwen-Image Technical Report v1](https://arxiv.org/html/2508.02324v1)
