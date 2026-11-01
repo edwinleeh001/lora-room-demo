@@ -46,11 +46,11 @@ The original figure separates three roles. Qwen2.5-VL provides semantic conditio
 
 **English**
 
-The top path starts with noise. Semantic conditions guide MMDiT, and iterative updates produce the final latent for VAE decoding. Below, editing adds two source-image conditions: meaning from Qwen2.5-VL and detail from the VAE encoder. Both guide one generator. These are conceptual illustrations, not model outputs.
+This diagram connects generation and editing. Above, Qwen2.5-VL turns the prompt into semantic conditions. MMDiT predicts velocity to update noise into a final latent, which the VAE decodes. Below, editing adds meaning and visual detail from the same source image through two encoders. Both guide one generator.
 
 **中文翻译**
 
-上半图从噪声出发，语义条件引导MMDiT，反复更新后得到最终latent，再由VAE解码。下半图的编辑增加两路源图条件：Qwen2.5-VL提供语义，VAE编码器提供细节；两路引导同一个生成器。这些是概念示意，并非模型实测输出。
+这张图串起生成与编辑。上半图中，Qwen2.5-VL把提示词转换为语义条件；MMDiT预测速度，将噪声逐步更新为最终latent，再由VAE解码。下半图的编辑通过两个编码器，从同一张源图提取语义与视觉细节，两路共同引导一个生成器。
 
 ## 第05页｜数据、渐进训练与VAEData, progressive training and the VAE
 
