@@ -1,6 +1,6 @@
 # Qwen-Image｜15页公式版中英对照讲稿
 
-15页合并公式版：每段英文后接完整中文翻译。已移除数学互动实验，保留公式原理和算例；30秒配乐视频保留。现场选择一种语言讲述，操作提示不朗读。逐页预算合计17分55秒，低于20分钟上限，留2分05秒缓冲；实际语速仍需计时排练。
+15页合并公式版：每段英文后接完整中文翻译。已移除数学互动实验，保留公式原理和算例；核心路径以流程框架图呈现。现场选择一种语言讲述，操作提示不朗读。逐页预算合计17分55秒，低于20分钟上限，留2分05秒缓冲；实际语速仍需计时排练。
 
 ## 第01页｜为什么这篇论文值得读？Why this paper?
 
@@ -32,25 +32,25 @@ This diagram gives the overall route. The language model understands the request
 
 **English**
 
-The original figure separates three roles. Qwen2.5-VL provides semantic conditions. The VAE encodes and reconstructs images. MMDiT predicts latent velocity; its backbone has twenty billion parameters. During training, a clean image defines supervision. During inference, that target is unavailable: generation begins with noise. The next video traces the full process.
+The original figure separates three roles. Qwen2.5-VL provides semantic conditions. The VAE encodes and reconstructs images. MMDiT predicts latent velocity; its backbone has twenty billion parameters. During training, a clean image defines supervision. During inference, that target is unavailable: generation begins with noise. The next diagram connects generation and editing.
 
 **中文翻译**
 
-原图区分三个角色：Qwen2.5-VL提供语义条件，VAE编码和重建图像，MMDiT预测潜在速度，其主干有两百亿参数。训练时，干净图像用于定义监督信号；推理时无法获得这个目标，生成从噪声开始。下一段视频展示完整流程。
+原图区分三个角色：Qwen2.5-VL提供语义条件，VAE编码和重建图像，MMDiT预测潜在速度，其主干有两百亿参数。训练时，干净图像用于定义监督信号；推理时无法获得这个目标，生成从噪声开始。下一张图串起生成与编辑流程。
 
-## 第04页｜30秒，看懂核心路径。
+## 第04页｜一张图，串起生成与编辑。One framework: generation and editing.
 
 时间：2:30–3:05；上限35秒
 
-**提示（不朗读）：** 不朗读：播放30秒背景音乐动态图解，本页预算35秒。 / Do not read aloud: play the 30-second music-backed animation; budget 35 seconds.
+**提示（不朗读）：** 沿上半图讲生成，下半图指出两路编辑条件；本页预算35秒。 / Trace generation above, then identify the two editing conditions below; budget 35 seconds.
 
 **English**
 
-Play the 30-second video with background music and the chosen subtitles. There is no narration. Continue when it finishes.
+The top path starts with noise. Semantic conditions guide MMDiT, and iterative updates produce the final latent for VAE decoding. Below, editing adds two source-image conditions: meaning from Qwen2.5-VL and detail from the VAE encoder. Both guide one generator. These are conceptual illustrations, not model outputs.
 
 **中文翻译**
 
-选择所需字幕，播放30秒背景音乐动态图解；没有旁白。结束后进入下一页。
+上半图从噪声出发，语义条件引导MMDiT，反复更新后得到最终latent，再由VAE解码。下半图的编辑增加两路源图条件：Qwen2.5-VL提供语义，VAE编码器提供细节；两路引导同一个生成器。这些是概念示意，并非模型实测输出。
 
 ## 第05页｜数据、渐进训练与VAEData, progressive training and the VAE
 
@@ -201,7 +201,6 @@ Three takeaways: text accuracy needs data, representation and training together;
 **中文翻译**
 
 三个要点：文字准确性需要数据、表示与训练配合；双路条件针对语义与细节；基准结论取决于语言和协议。Qwen-Image取得了有价值的进展，但归因和罕见字可靠性仍需研究。谢谢，欢迎就数学原理、证据或建议实验提问。
-
 ## Q&A：3个重点问题 / Three questions for discussion
 
 答问备查，不计入17分55秒正文预算。每题选择一种语言回答，约45-60秒，预留追问时间。
